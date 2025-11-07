@@ -1,0 +1,40 @@
+# --- .NET / ASP.NET Core ---
+bin/
+obj/
+*.user
+*.rsuser
+*.suo
+*.cache
+*.config
+*.pdb
+
+# --- SQLite Database ---
+*.db
+*.db-journal
+
+# --- Published Output ---
+/publish/
+/out/
+
+# --- Secrets ---
+appsettings.Development.json
+appsettings.Local.json
+
+# NEVER commit appsettings.json if it contains secrets
+# If it only contains placeholders, it's fine.
+# If not, uncomment this next line:
+# appsettings.json
+
+# --- Logs ---
+logs/
+*.log
+
+# --- Node ---
+node_modules/
+
+# --- VS Code ---
+.vscode/
+
+# --- System ---
+.DS_Store
+Thumbs.db

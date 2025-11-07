@@ -1,0 +1,76 @@
+@model BlogApp.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+@* Show validation errors *@
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+{
+    <div class="alert alert-danger mt-3">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@error.ErrorMessage</div>
+        }
+
+        @* Email already in use — offer login or resend confirmation *@
+        @if (ViewBag.DuplicateEmail == true)
+        {
+            <hr />
+            <a asp-action="Login" class="btn btn-sm btn-outline-dark">Log in</a>
+            <a asp-action="CheckEmail" asp-route-email="@Model.Email" 
+               class="btn btn-sm btn-outline-primary">Resend Confirmation</a>
+        }
+    </div>
+}
+
+@* DISPLAY ONLY REGISTRATION-SPECIFIC ERRORS *@
+@if (TempData["RegisterError"] != null)
+{
+    <div class="alert alert-danger mt-3">@TempData["RegisterError"]</div>
+}
+
+@* SUCCESSFUL REGISTRATION MESSAGE *@
+@if (TempData["RegisterSuccess"] != null)
+{
+    var email = TempData["RegisterSuccess"] as string;
+
+    <div class="alert alert-success mt-3">
+        <strong>Account Created!</strong><br />
+        A confirmation email has been sent to:
+        <strong>@email</strong><br /><br />
+
+        Please confirm your account before signing in.<br /><br />
+
+        <form asp-action="ResendConfirmationEmail" method="post" class="d-inline">
+            <input type="hidden" name="email" value="@email" />
+            <button class="btn btn-secondary btn-sm">Resend Confirmation Email</button>
+        </form>
+    </div>
+}
+
+<h2>Create Account</h2>
+<br />
+
+<form asp-action="Register" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Register</button>
+</form>

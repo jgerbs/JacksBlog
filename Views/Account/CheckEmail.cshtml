@@ -1,0 +1,31 @@
+@{
+    var email = ViewBag.Email ?? "";
+    var error = ViewBag.Error as string;
+    var resent = ViewBag.Resent as bool? ?? false;
+}
+
+<h2>Verification Required</h2>
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+
+@if (resent)
+{
+    <div class="alert alert-success">Confirmation email resent!</div>
+}
+
+<div class="alert alert-secondary p-4">
+    <p>A confirmation email has been sent to: <strong>@email</strong></p>
+    <p>Please check your inbox and confirm your account before signing in.</p>
+</div>
+
+<h4>Didn't receive the email?</h4>
+
+<form asp-action="ResendConfirmationEmail" method="post" class="mb-3">
+    <input type="hidden" name="email" value="@email" />
+    <button class="btn btn-primary">Resend Confirmation Email</button>
+</form>
+
+<a asp-action="Login" class="btn btn-secondary">Return to Login</a>

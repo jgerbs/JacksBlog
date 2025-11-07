@@ -1,0 +1,26 @@
+@* Jack Gerber - A01266976
+   Date: Nov 05, 2025 *@
+
+@model BlogApp.Models.Article
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var author = await UserManager.FindByNameAsync(Model.ContributorUsername);
+    var authorName = author != null ? $"{author.FirstName} {author.LastName}" : "Unknown Author";
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="article-details container py-4">
+    <h1 class="text-accent mb-2">@Model.Title</h1>
+    <p class="text-muted mb-4"><strong>@authorName
+    </strong> - @Model.DatePosted.ToLocalTime().ToString("MMMM dd, yyyy")</p>
+
+    <div class="content-body">
+        @Html.Raw(Model.ContentHtml)
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">Back to Home</a>
+    </div>
+</div>

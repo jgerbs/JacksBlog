@@ -1,0 +1,232 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* -----------------------------------------------------------
+   ARTICLE CARD (Matches Portfolio Style) — FIXED VERSION
+------------------------------------------------------------*/
+
+.article-card {
+    background: #0a0f1a;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+    border: 1px solid rgba(0, 255, 255, 0.08);
+    transition: transform .25s ease, box-shadow .25s ease;
+    opacity: 1;                 /* ✅ FIX: always visible */
+    transform: none;            /* ✅ FIX */
+    color: #dce7f7;             /* ✅ FIX: visible text */
+}
+
+.article-card * {
+    color: #dce7f7;             /* ✅ FIX: children visible */
+}
+
+.article-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+}
+
+/* FIXED ARTICLE IMAGE SIZE */
+.article-image {
+    width: 100%;
+    height: 340px;          /* ✅ Set fixed height */
+    object-fit: cover;      /* ✅ Crop nicely */
+    object-position: center;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+
+.article-title {
+    font-size: 28px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.article-meta {
+    font-size: 15px;
+    color: #9ab;
+    margin-bottom: 8px;
+}
+
+.article-description {
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: #dce7f7;
+}
+
+/* -----------------------------------------------------------
+   NICER, BIGGER, ROUNDED ARTICLE BUTTONS
+------------------------------------------------------------*/
+
+.article-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 18px;                  /* more space between buttons */
+    margin-top: 15px;
+}
+
+/* base button style */
+.article-btn {
+    padding: 10px 28px;         /* ✅ bigger */
+    font-size: 17px;            /* ✅ easier to read */
+    border-radius: 12px;        /* ✅ rounded edges */
+    font-weight: 600;           /* ✅ bold text */
+    cursor: pointer;
+    border: none;
+    transition: all .25s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* READ button */
+.btn-read {
+    background: #1eb6d9;
+    color: #fff;
+}
+.btn-read:hover {
+    background: #0f7a99;
+    transform: translateY(-3px);
+}
+
+/* EDIT button */
+.btn-edit {
+    background: #ffc107;
+    color: #000;
+}
+.btn-edit:hover {
+    background: #d39e00;
+    transform: translateY(-3px);
+}
+
+/* DELETE button */
+.btn-delete {
+    background: #dc3545;
+    color: #fff;
+}
+.btn-delete:hover {
+    background: #bd2130;
+    transform: translateY(-3px);
+}
+
+/* Buttons */
+.btn-read { background: #1eb6d9; color: #fff; }
+.btn-read:hover { background: #0f7a99; }
+
+.btn-edit { background: #ffc107; color: #000; }
+.btn-edit:hover { background: #d39e00; }
+
+.btn-delete { background: #dc3545; color: #fff; }
+.btn-delete:hover { background: #bd2130; }
+
+/* -----------------------------------------------------------
+   CUSTOM DARK CYBER MODAL
+------------------------------------------------------------*/
+
+.custom-modal .modal-dialog {
+    max-width: 500px;
+}
+
+.modal-theme {
+    background: #0a0f1a;
+    border-radius: 14px;
+    border: 1px solid rgba(0,255,255,0.08);
+    box-shadow: 0 0 25px rgba(0,255,255,0.1);
+    color: #dce7f7;
+}
+
+/* Header */
+.modal-theme .modal-header {
+    border-bottom: 1px solid rgba(0,255,255,0.08);
+}
+
+.modal-theme .modal-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1eb6d9;
+}
+
+/* Body */
+.modal-theme .modal-body {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.modal-article-title {
+    font-size: 20px;
+    color: #fff;
+    margin-top: 10px;
+}
+
+/* Footer */
+.modal-theme .modal-footer {
+    border-top: 1px solid rgba(0,255,255,0.08);
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+}
+
+/* Buttons */
+.modal-btn {
+    padding: 10px 24px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+/* Cancel */
+.modal-cancel {
+    background: #6c757d;
+    color: white;
+}
+.modal-cancel:hover {
+    background: #545b62;
+}
+
+/* Delete */
+.modal-delete {
+    background: #dc3545;
+    color: white;
+}
+.modal-delete:hover {
+    background: #bd2130;
+}
+
+/* Close button white */
+.btn-close-white {
+    filter: invert(1);
+}
+

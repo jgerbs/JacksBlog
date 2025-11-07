@@ -1,0 +1,60 @@
+@* Jack Gerber - A01266976
+   Date: Nov 05, 2025 *@
+ 
+@model BlogApp.Models.Article
+
+@{
+    ViewData["Title"] = "Create Article";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="ShortDescription" class="form-label"></label>
+        <textarea asp-for="ShortDescription" class="form-control" rows="2" maxlength="300"></textarea>
+        <span asp-validation-for="ShortDescription" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="CoverImageUrl" class="form-label"></label>
+        <input asp-for="CoverImageUrl" class="form-control" placeholder="Paste image URL or upload below" />
+
+        <div class="mt-2">
+            <label for="fileUpload" class="form-label">Or drag and drop an image</label>
+            <input type="file" id="fileUpload" name="fileUpload" class="form-control" accept="image/*" />
+        </div>
+
+        <span asp-validation-for="CoverImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="ContentHtml" class="form-label">Content</label>
+        <textarea id="ContentHtml" asp-for="ContentHtml" class="form-control"></textarea>
+        <span asp-validation-for="ContentHtml" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Publish</button>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/ls2vbg938v0xfvzhta3gbj4s2l30js8udtwi1lk2c9270xn4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#ContentHtml',
+            plugins: 'image link media code lists',
+            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image media | code',
+            height: 500,
+            menubar: false,
+            branding: false,
+            content_style: "body { background-color: #0A1E24; color: #E6F4F8; font-family: 'Inter', sans-serif; }"
+        });
+    </script>
+}

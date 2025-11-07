@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; background:#f7f7f7; padding:20px;">
+
+    <div style="max-width:600px; margin:auto; background:white; padding:25px; border-radius:8px;">
+        
+        <h2 style="color:#1EB6D9; text-align:center; margin-top:0;">
+            Welcome to Jack's Blog!
+        </h2>
+
+        <p style="font-size:16px; color:#444;">
+            Thanks for signing up! We're excited to have you join.
+        </p>
+
+        <p style="font-size:16px; color:#444;">
+            Please confirm your account by clicking the button below. After confirming your email, you can log in.
+        </p>
+
+        <div style="text-align:center; margin:30px 0;">
+            <a href="{{confirm_link}}"
+               style="background:#1EB6D9; color:white; padding:14px 24px; 
+                      font-size:16px; text-decoration:none; border-radius:6px; display:inline-block;">
+                Confirm Email
+            </a>
+        </div>
+
+        <p style="font-size:15px; color:#444;">
+            If the button doesn’t work, you can manually paste this link into your browser:
+        </p>
+
+        <p style="word-break:break-all; font-size:14px; color:#1EB6D9;">
+            {{confirm_link}}
+        </p>
+
+        <hr style="margin-top:30px; border:none; border-top:1px solid #ddd;">
+
+        <p style="font-size:13px; color:#888; text-align:center;">
+            If you did not create an account, you can safely ignore this email.
+        </p>
+
+    </div>
+
+</body>
+</html>

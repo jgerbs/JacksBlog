@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Confirmation Failed";
+}
+
+<div class="alert alert-danger mt-4">
+    <h4>Invalid or expired confirmation link.</h4>
+    <p>Please request a new confirmation email.</p>
+
+    <a asp-action="CheckEmail" class="btn btn-outline-dark mt-3">Resend Confirmation Email</a>
+</div>

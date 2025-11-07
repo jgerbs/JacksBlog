@@ -1,0 +1,58 @@
+@* Jack Gerber - A01266976
+   Date: Nov 05, 2025 *@
+ 
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@model IEnumerable<BlogApp.Models.Article>
+
+@{
+    ViewData["Title"] = "Home";
+    var currentUser = User.Identity.IsAuthenticated ? await UserManager.GetUserAsync(User) : null;
+}
+
+<h2 class="mb-4 text-accent">Latest Articles</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var article in Model.OrderByDescending(a => a.DatePosted))
+    {
+        bool isOwner = currentUser != null && article.ContributorUsername == currentUser.UserName;
+        bool isAdmin = User.IsInRole("Admin");
+
+        <div class="col">
+            <div class="card bg-dark text-light shadow-glow h-100">
+                @if (!string.IsNullOrEmpty(article.CoverImageUrl))
+                {
+                    <img src="@article.CoverImageUrl" class="card-img-top" alt="@article.Title" 
+                         style="object-fit: cover; height: 200px; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
+                }
+
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title text-accent">@article.Title</h4>
+                    <p class="text-muted small">@article.DatePosted.ToLocalTime().ToString("MMM dd, yyyy")</p>
+                    <p class="card-text flex-grow-1">@article.ShortDescription</p>
+
+                    <div class="mt-auto d-flex justify-content-between">
+                        <a asp-action="Details" asp-controller="Article" asp-route-id="@article.ArticleId"
+                           class="btn btn-outline-info">Read More</a>
+
+                        @if (isOwner || isAdmin)
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@article.ArticleId" class="btn btn-warning me-2">Edit</a>
+                                <form asp-action="DeleteConfirmed" asp-route-id="@article.ArticleId" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (User.Identity.IsAuthenticated && (User.IsInRole("Contributor") || User.IsInRole("Admin")))
+{
+    <a asp-action="Create" class="btn btn-success mt-4">Create New Article</a>
+}

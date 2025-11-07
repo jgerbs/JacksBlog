@@ -1,0 +1,93 @@
+@model IEnumerable<BlogApp.Models.ApplicationUser>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Manage User Accounts";
+}
+
+<h2 class="mb-4">Manage User Accounts</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<table class="table table-dark table-striped table-bordered shadow-lg">
+    <thead>
+        <tr class="text-accent">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Email Confirmed</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th style="width: 260px;">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            var roles = await UserManager.GetRolesAsync(user);
+            var role = roles.FirstOrDefault() ?? "Unknown";
+
+            bool isSuspended = user.LockoutEnd.HasValue && user.LockoutEnd > DateTimeOffset.UtcNow;
+
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+
+                <td>
+                    @if (user.EmailConfirmed)
+                    {
+                        <span class="badge bg-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">No</span>
+                    }
+                </td>
+
+                <td>@role</td>
+
+                <td>
+                    @if (isSuspended)
+                    {
+                        <span class="badge bg-danger">Suspended</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                </td>
+
+                <td class="text-end">
+
+                    @* Suspend / Unsuspend *@
+                    @if (!isSuspended)
+                    {
+                        <form method="post" asp-action="SuspendUser" class="d-inline">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button class="btn btn-warning btn-sm">Suspend</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-action="UnsuspendUser" class="d-inline">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <button class="btn btn-success btn-sm">Unsuspend</button>
+                        </form>
+                    }
+
+                    @* DELETE USER BUTTON *@
+                    <form method="post" asp-action="DeleteUser" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to permanently delete this user? This cannot be undone.');">
+                        <input type="hidden" name="id" value="@user.Id" />
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
